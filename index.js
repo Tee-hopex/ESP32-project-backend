@@ -27,5 +27,5 @@ app.get("/", (req, res) => {
     res.send("Backend API is running...");
 });
 
-// Export the app for Vercel
+// ✅ Vercel Requires This Export
 module.exports = app;
