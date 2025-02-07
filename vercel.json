@@ -1,21 +1,14 @@
 {
-    "version": 2,
     "builds": [
       {
-        "src": "server.js",
+        "src": "./server.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
-        "src": "/api/(.*)",
-        "dest": "server.js"
+        "src": "/(.*)",
+        "dest": "/"
       }
-    ],
-    "env": {
-      "MONGO_URI": "mongodb+srv://afolayanthopex:VYDO4UpISywGIVy5@cluster0.1lmdq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-      "BLYNK_TOKEN": "7L6qI3gaecxIK6wMAvNytsvvLya9NyG8",
-      "JWT_SECRET": "dfajeiheihvkdiapeifdha9eifhdf"
-    }
+    ]
   }
-  
