@@ -26,3 +26,5 @@ app.get("/", (req, res) => {
     res.send("Backend API is running...");
 });
 
+
+module.exports = app;
