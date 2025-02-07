@@ -9,8 +9,8 @@ app.use(cors());
 
 // MongoDB Connection using Environment Variable
 mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true
 })
 .then(() => console.log("✅ Connected to MongoDB"))
 .catch(err => console.error("❌ MongoDB Connection Error:", err));
@@ -26,5 +26,3 @@ app.get("/", (req, res) => {
     res.send("Backend API is running...");
 });
 
-// Export app for Vercel
-module.exports = app;
