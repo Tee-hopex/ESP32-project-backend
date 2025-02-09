@@ -56,14 +56,23 @@ exports.getLast10MinutesSensorData = async (req, res) => {
     try {
         const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000); // Get time 10 minutes ago
 
-        // ✅ Fetch sensor readings recorded in the last 10 minutes
-        const recentData = await SensorData.find({ timestamp: { $gte: tenMinutesAgo } }).sort({ timestamp: -1 });
+        console.log(`⏳ Fetching sensor data from latest entry until timestamp >= ${tenMinutesAgo.toISOString()}`);
 
-        res.status(200).json(recentData);
+        // ✅ Fetch latest sensor data until reaching 10-minute range
+        const recentData = await SensorData.find({}).sort({ timestamp: -1 });
+
+        // ✅ Filter only the data within the last 10 minutes
+        const filteredData = recentData.filter(data => new Date(data.timestamp) >= tenMinutesAgo);
+
+        console.log(`✅ Found ${filteredData.length} records in the last 10-minute range.`);
+
+        res.status(200).json(filteredData);
     } catch (error) {
+        console.error("❌ Failed to fetch sensor data:", error.message);
         res.status(500).json({ error: "❌ Failed to fetch sensor data", details: error.message });
     }
 };
+
 
 
 
