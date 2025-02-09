@@ -33,14 +33,24 @@ exports.getSystemStatus = async (req, res) => {
     res.json({ status: systemOnline ? "online" : "offline" }); // ✅ Return current system status
 };
 
-exports.getRecentLogs = async (req, res) => {
+// exports.getRecentLogs = async (req, res) => {
+//     try {
+//         const logs = await Log.find().sort({ timestamp: -1 }).limit(10); // Fetch latest 10 logs
+//         res.status(200).json(logs);
+//     } catch (error) {
+//         res.status(500).json({ error: "❌ Failed to fetch logs", details: error.message });
+//     }
+// };
+
+exports.getRecentSensorData = async (req, res) => {
     try {
-        const logs = await Log.find().sort({ timestamp: -1 }).limit(10); // Fetch latest 10 logs
-        res.status(200).json(logs);
+        const sensorData = await SensorData.find().sort({ timestamp: -1 }).limit(10); // Get latest 10 sensor readings
+        res.status(200).json(sensorData);
     } catch (error) {
-        res.status(500).json({ error: "❌ Failed to fetch logs", details: error.message });
+        res.status(500).json({ error: "❌ Failed to fetch sensor data", details: error.message });
     }
 };
+
 
 
 
