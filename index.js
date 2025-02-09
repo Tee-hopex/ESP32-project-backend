@@ -8,14 +8,7 @@ const sensorController = require("./controllers/sensorController"); // Import th
 // Create Express app
 const app = express();
 app.use(express.json());
-// app.use(cors());
-
-app.use(cors({
-    origin: "http://127.0.0.1:5500", // ✅ Allow requests from any origin (change this to your frontend URL for security)
-    methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: "Content-Type,Authorization"
-}));
-
+app.use(cors());
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {

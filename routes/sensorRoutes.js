@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { fetchSensorData, getAllSensorData, getLast10MinutesStats, getSystemStatus, getAllLogs, clearNotifications, getAllNotifications, getRecentSensorData, updateSystemStatus } = require('../controllers/sensorController');
+const { fetchSensorData, getAllSensorData, getLast10MinutesSensorData, getSystemStatus, getAllLogs, clearNotifications, getAllNotifications, getRecentSensorData, updateSystemStatus } = require('../controllers/sensorController');
 
 // Route to fetch real-time sensor data
 router.get('/fetch', fetchSensorData);
@@ -21,7 +21,7 @@ router.get('/get-system-status', getSystemStatus); // ✅ Route for backend to f
 router.get('/recent-sensor-data', getRecentSensorData);
 
 // Route to fetch data for the statistics on the dashboard
-router.get('/stats-last-10-minutes', getLast10MinutesStats);
+router.get('/sensor-data-last-10-minutes', getLast10MinutesSensorData);
 
 
 
