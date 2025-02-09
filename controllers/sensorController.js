@@ -12,7 +12,7 @@ let systemOnline = false; // Default system status is offline
 
 // ✅ Function to update system status from frontend (script.js)
 exports.updateSystemStatus = async (req, res) => {
-    console.log("🚀 Received request to update system status..."); // Debugging log
+    console.log("🚀 Received request to update system status...");
 
     if (!req.body || !req.body.status) {
         console.error("❌ No status received in request body.");
@@ -27,9 +27,19 @@ exports.updateSystemStatus = async (req, res) => {
     res.json({ message: "System status updated", systemOnline });
 };
 
+
 exports.getSystemStatus = async (req, res) => {
     console.log("📡 Sending system status to backend...");
     res.json({ status: systemOnline ? "online" : "offline" }); // ✅ Return current system status
+};
+
+exports.getRecentLogs = async (req, res) => {
+    try {
+        const logs = await Log.find().sort({ timestamp: -1 }).limit(10); // Fetch latest 10 logs
+        res.status(200).json(logs);
+    } catch (error) {
+        res.status(500).json({ error: "❌ Failed to fetch logs", details: error.message });
+    }
 };
 
 
