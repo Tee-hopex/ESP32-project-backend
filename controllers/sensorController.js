@@ -52,34 +52,19 @@ exports.getRecentSensorData = async (req, res) => {
 };
 
 
-exports.getLast10MinutesStats = async (req, res) => {
+exports.getLast10MinutesSensorData = async (req, res) => {
     try {
         const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000); // Get time 10 minutes ago
 
-        const recentData = await SensorData.find({ timestamp: { $gte: tenMinutesAgo } });
+        // ✅ Fetch sensor readings recorded in the last 10 minutes
+        const recentData = await SensorData.find({ timestamp: { $gte: tenMinutesAgo } }).sort({ timestamp: -1 });
 
-        if (recentData.length === 0) {
-            return res.status(200).json({
-                avgTemp: 0,
-                avgHumidity: 0,
-                totalReadings: 0
-            });
-        }
-
-        const total = recentData.length;
-        const avgTemp = recentData.reduce((sum, entry) => sum + entry.temperature, 0) / total;
-        const avgHumidity = recentData.reduce((sum, entry) => sum + entry.humidity, 0) / total;
-
-        res.status(200).json({
-            avgTemp: avgTemp.toFixed(1),
-            avgHumidity: avgHumidity.toFixed(1),
-            totalReadings: total
-        });
-
+        res.status(200).json(recentData);
     } catch (error) {
-        res.status(500).json({ error: "❌ Failed to fetch statistics", details: error.message });
+        res.status(500).json({ error: "❌ Failed to fetch sensor data", details: error.message });
     }
 };
+
 
 
 
